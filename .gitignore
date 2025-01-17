@@ -84,6 +84,12 @@ public/uploads/*
 !public/uploads/.gitkeep
 .tsbuildinfo
 .eslintcache
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+nginx/ssl/*
+!nginx/ssl/.gitkeep
 
 ############################
 # Node.js

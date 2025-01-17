@@ -1,0 +1,60 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: wildlife-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - strapi
+    networks:
+      - wildlife
+    restart: unless-stopped
+
+  strapi:
+    image: ghcr.io/wildlifeai/wildlife-watcher-backend:main
+    container_name: wildlife-strapi
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: strapiDB
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: production
+    volumes:
+      - ./public/uploads:/opt/app/public/uploads
+    depends_on:
+      - strapiDB
+    networks:
+      - wildlife
+
+  strapiDB:
+    image: postgres:15.10-alpine
+    container_name: wildlife-db
+    platform: linux/amd64
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - wildlife-data:/var/lib/postgresql/data/
+    networks:
+      - wildlife
+
+volumes:
+  wildlife-data:
+
+networks:
+  wildlife:
+    name: wildlife-network
+    driver: bridge

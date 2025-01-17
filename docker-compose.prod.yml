@@ -20,15 +20,6 @@ services:
     image: ghcr.io/wildlifeai/wildlife-watcher-backend:main
     container_name: wildlife-strapi
     restart: unless-stopped
-    env_file: .env
-    environment:
-      DATABASE_CLIENT: postgres
-      DATABASE_HOST: strapiDB
-      DATABASE_PORT: 5432
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      NODE_ENV: production
     volumes:
       - ./public/uploads:/opt/app/public/uploads
     depends_on:
@@ -41,7 +32,6 @@ services:
     container_name: wildlife-db
     platform: linux/amd64
     restart: unless-stopped
-    env_file: .env
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -53,6 +43,7 @@ services:
 
 volumes:
   wildlife-data:
+    name: wildlife-data
 
 networks:
   wildlife:

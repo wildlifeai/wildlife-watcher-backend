@@ -10,7 +10,7 @@ RUN npm install --production --fetch-timeout=600000
 
 # Copy source code and env file
 COPY . .
-COPY .env.production .env
+COPY /.env.production .env
 
 RUN npm run build
 

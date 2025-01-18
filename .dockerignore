@@ -1,0 +1,35 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Build outputs
+.strapi
+dist
+build
+.cache
+.tmp
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Development
+.git
+.gitignore
+.vscode
+.idea
+*.md
+docker-compose*
+Dockerfile*
+.dockerignore
+
+# Strapi
+.strapi-updater.json
+.strapi-cloud.json
+
+# Uploads (if you're using volume mounts)
+public/uploads/*
+!public/uploads/.gitkeep 

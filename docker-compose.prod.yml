@@ -20,6 +20,7 @@ services:
     image: ghcr.io/wildlifeai/wildlife-watcher-backend:main
     container_name: wildlife-strapi
     restart: unless-stopped
+    entrypoint: ["tail", "-f", "/dev/null"]
     volumes:
       - ./public/uploads:/opt/app/public/uploads
     depends_on:

@@ -20,7 +20,6 @@ services:
     image: ghcr.io/wildlifeai/wildlife-watcher-backend:main
     container_name: wildlife-strapi
     restart: unless-stopped
-    entrypoint: ["tail", "-f", "/dev/null"]
     volumes:
       - ./public/uploads:/opt/app/public/uploads
     depends_on:
@@ -37,7 +36,6 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_INITDB_ARGS: "--auth-host=md5"
     volumes:
       - wildlife-data:/var/lib/postgresql/data/
     networks:

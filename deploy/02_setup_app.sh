@@ -2,7 +2,7 @@
 # Create .env file
 cat > .env << EOL
 DATABASE_USERNAME=strapi
-DATABASE_PASSWORD=strapi
+DATABASE_PASSWORD=3kbt5465h0bvclfrjh5430vje39
 DATABASE_NAME=strapi
 EOL
 

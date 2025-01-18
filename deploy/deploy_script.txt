@@ -1,3 +1,15 @@
+# Check strapi logs
+docker compose -f docker-compose.prod.yml logs strapi
+
+# Check nginx logs
+docker compose -f docker-compose.prod.yml logs nginx
+
+# Get a shell in database
+docker compose -f docker-compose.prod.yml exec strapiDB psql -U strapi
+
+# Restart a specific service
+docker compose -f docker-compose.prod.yml restart strapi
+
 # === INSTRUCTIONS ===
 # On a fresh Ubuntu VM, copy and paste everything below this line into your terminal
 # ==================

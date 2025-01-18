@@ -15,8 +15,11 @@ if groups $USER | grep -q '\bdocker\b'; then
 else
     echo "Adding user to docker group..."
     sudo usermod -aG docker $USER
-    # Refresh group membership without requiring logout
-    exec su -l $USER
+    echo "===================================="
+    echo "Running newgrp docker..."
+    echo "After this completes, please paste this script again."
+    echo "===================================="
+    exec newgrp docker
 fi
 
 # Check if Docker Compose is installed

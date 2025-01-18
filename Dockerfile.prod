@@ -8,9 +8,10 @@ COPY package.json package-lock.json ./
 RUN npm install -g node-gyp
 RUN npm install --production --fetch-timeout=600000
 
-# Copy source code and env file
+# Copy env file first
+COPY .env.production .env
+# Then copy the rest of the source code
 COPY . .
-COPY /.env.production .env
 
 RUN npm run build
 
@@ -21,7 +22,7 @@ ENV NODE_ENV=production
 
 WORKDIR /opt/app
 COPY --from=build /opt/app ./
-ENV PATH=/opt/node_modules/.bin:$PATH
+ENV PATH=/opt/app/node_modules/.bin:$PATH
 
 RUN chown -R node:node /opt/app
 USER node

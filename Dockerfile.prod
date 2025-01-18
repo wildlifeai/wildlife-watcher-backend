@@ -1,6 +1,7 @@
 # Creating multi-stage build for production
 FROM node:20-alpine as build
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
+# TODO For test, write production when ready
 ENV NODE_ENV=development
 
 WORKDIR /opt/
@@ -30,4 +31,5 @@ ENV PATH=/opt/node_modules/.bin:$PATH
 RUN chown -R node:node /opt/app
 USER node
 EXPOSE 1337
-CMD ["npm", "run", "start"] 
+# TODO For test, write CMD ["npm", "run", "start"]  when ready
+CMD ["npm", "run", "develop"] 

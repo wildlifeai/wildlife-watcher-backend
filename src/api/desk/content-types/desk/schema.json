@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "desks",
+  "info": {
+    "singularName": "desk",
+    "pluralName": "desks",
+    "displayName": "Desk"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "alive": {
+      "type": "boolean"
+    }
+  }
+}

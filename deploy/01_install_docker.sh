@@ -22,13 +22,11 @@ else
     exec newgrp docker
 fi
 
-# Check if Docker Compose is installed
-if docker compose version &> /dev/null; then
-    echo "Docker Compose is already installed"
-else
-    echo "Installing Docker Compose..."
-    sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
+# Install Docker Compose plugin
+if ! docker compose version &> /dev/null; then
+    echo "Installing Docker Compose plugin..."
+    sudo apt-get update
+    sudo apt-get install -y docker-compose-plugin
 fi
 
 echo "Docker installation complete!" 

@@ -127,7 +127,7 @@ git clone https://github.com/wildlifeai/wildlife-watcher-backend.git
 cd wildlife-watcher-backend
 ```
 
-4. Create a `.env` file with your production settings
+4. Create a `.env` file with your production settings.
 
 5. Start the production stack:
 

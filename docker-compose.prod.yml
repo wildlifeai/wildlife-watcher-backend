@@ -18,10 +18,15 @@ services:
     image: ghcr.io/wildlifeai/wildlife-watcher-backend:main
     container_name: wildlife-strapi
     restart: unless-stopped
+    environment:
+      - DATABASE_POOL_MIN=0
+      - DATABASE_POOL_MAX=10
+      - DATABASE_POOL_IDLE_TIMEOUT=30000
     volumes:
       - ./public/uploads:/opt/app/public/uploads
     depends_on:
-      - strapiDB
+      strapiDB:
+        condition: service_healthy
     networks:
       - wildlife
 
@@ -36,6 +41,11 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - wildlife-data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - wildlife
 

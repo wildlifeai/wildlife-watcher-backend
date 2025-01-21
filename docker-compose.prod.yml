@@ -21,8 +21,14 @@ services:
     env_file: .env
     environment:
       - DATABASE_POOL_MIN=0
-      - DATABASE_POOL_MAX=10
-      - DATABASE_POOL_IDLE_TIMEOUT=30000
+      - DATABASE_POOL_MAX=100
+      - DATABASE_POOL_IDLE_TIMEOUT=300000
+      - DATABASE_CONNECTION_TIMEOUT=600000
+      - DATABASE_ACQUIRE_TIMEOUT=300000
+      - DATABASE_CREATE_TIMEOUT=300000
+      - DATABASE_DESTROY_TIMEOUT=50000
+      - DATABASE_REAP_INTERVAL=10000
+      - DATABASE_CREATE_RETRY_INTERVAL=2000
     volumes:
       - ./public/uploads:/opt/app/public/uploads
     depends_on:

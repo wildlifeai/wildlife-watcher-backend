@@ -32,4 +32,4 @@ RUN chown -R node:node /opt/app
 USER node
 EXPOSE 1337
 # TODO For test, write CMD ["npm", "run", "start"]  when ready
-CMD ["npm", "run", "develop"] 
+CMD ["npm", "run", "develop", "--", "--debug"]

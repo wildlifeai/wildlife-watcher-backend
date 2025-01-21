@@ -10,8 +10,6 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - strapi
-    networks:
-      - wildlife
     restart: unless-stopped
 
   strapi:
@@ -22,8 +20,6 @@ services:
       - ./public/uploads:/opt/app/public/uploads
     depends_on:
       - strapiDB
-    networks:
-      - wildlife
 
   strapiDB:
     image: postgres:15.10-alpine
@@ -36,8 +32,6 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - wildlife-data:/var/lib/postgresql/data/
-    networks:
-      - wildlife
 
 volumes:
   wildlife-data:
@@ -47,8 +41,3 @@ volumes:
       type: none
       o: bind
       device: /opt/wildlife-watcher-backend/postgres-data
-
-networks:
-  wildlife:
-    name: wildlife-network
-    driver: bridge

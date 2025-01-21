@@ -49,5 +49,4 @@ volumes:
 
 networks:
   wildlife-network:
-    name: wildlife-network
     driver: bridge

@@ -12,14 +12,19 @@ services:
       - strapi
     restart: unless-stopped
     networks:
-      - wildlife
+      - wildlife-network
 
   strapi:
     image: ghcr.io/wildlifeai/wildlife-watcher-backend:main
     container_name: wildlife-strapi
     restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     env_file: .env
     environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=wildlife-db
       - DATABASE_POOL_MIN=0
       - DATABASE_POOL_MAX=100
       - DATABASE_POOL_IDLE_TIMEOUT=300000
@@ -35,7 +40,7 @@ services:
       strapiDB:
         condition: service_healthy
     networks:
-      - wildlife
+      - wildlife-network
 
   strapiDB:
     image: postgres:15.10-alpine
@@ -67,7 +72,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - wildlife
+      - wildlife-network
 
 volumes:
   wildlife-data:
@@ -79,6 +84,6 @@ volumes:
       device: /opt/wildlife-watcher-backend/postgres-data
 
 networks:
-  wildlife:
+  wildlife-network:
     name: wildlife-network
     driver: bridge

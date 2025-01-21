@@ -36,18 +36,9 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
-      - wildlife-data:/var/lib/postgresql/data/
+      - ./postgres-data:/var/lib/postgresql/data
     networks:
       - wildlife-network
-
-volumes:
-  wildlife-data:
-    name: wildlife-data
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /opt/wildlife-watcher-backend/postgres-data
 
 networks:
   wildlife-network:

@@ -26,6 +26,8 @@ services:
 
   strapiDB:
     image: postgres:15.10-alpine
+    ports:
+      - "5432:5432"
     platform: linux/amd64
     restart: unless-stopped
     env_file: .env

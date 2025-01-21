@@ -47,6 +47,18 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_INITDB_ARGS: "--log-min-messages=debug1"
+      POSTGRES_INITDB_WALDIR: "/var/lib/postgresql/pg_wal"
+    command:
+      [
+        "postgres",
+        "-c",
+        "log_statement=all",
+        "-c",
+        "log_connections=on",
+        "-c",
+        "log_disconnections=on",
+      ]
     volumes:
       - wildlife-data:/var/lib/postgresql/data/
     healthcheck:

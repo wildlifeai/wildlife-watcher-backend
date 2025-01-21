@@ -41,3 +41,5 @@ echo $CR_PAT | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin && \
 # Make setup script executable and run it
 chmod +x deploy/02_setup_app.sh && \
 ./deploy/02_setup_app.sh
+
+docker compose -f docker-compose.prod.yml up -d

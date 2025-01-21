@@ -6,9 +6,14 @@ DATABASE_PASSWORD=3kbt5465h0bvclfrjh5430vje39
 DATABASE_NAME=strapi
 EOL
 
-# Create persistent directory for PostgreSQL
+# Create the directory if it doesn't exist
 sudo mkdir -p /opt/wildlife-watcher-backend/postgres-data
-sudo chown -R 999:999 /opt/wildlife-watcher-backend/postgres-data  # 999 is postgres user in container
+
+# Set ownership to the postgres user (UID 999 in the container)
+sudo chown -R 999:999 /opt/wildlife-watcher-backend/postgres-data
+
+# Set full permissions (read/write/execute) for everyone
+sudo chmod 777 /opt/wildlife-watcher-backend/postgres-data
 
 # Start the stack
 docker compose -f docker-compose.prod.yml up -d

@@ -26,7 +26,7 @@ fi
 if ! docker compose version &> /dev/null; then
     echo "Installing Docker Compose plugin..."
     sudo apt-get update
-    sudo apt-get install -y docker-compose-plugin
+    sudo apt-get install -y docker-compose
 fi
 
 echo "Docker installation complete!" 

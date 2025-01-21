@@ -25,8 +25,15 @@ fi
 # Install Docker Compose plugin
 if ! docker compose version &> /dev/null; then
     echo "Installing Docker Compose plugin..."
-    sudo apt-get update
-    sudo apt-get install -y docker-compose
+    DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+    mkdir -p $DOCKER_CONFIG/cli-plugins
+    curl -SL https://github.com/docker/compose/releases/download/v2.32.4/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+    chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 fi
+
+# Verify installations
+echo "Verifying installations..."
+docker --version
+docker compose version
 
 echo "Docker installation complete!" 

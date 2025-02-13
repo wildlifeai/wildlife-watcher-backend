@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "devices",
+  "info": {
+    "singularName": "device",
+    "pluralName": "devices",
+    "displayName": "Devices",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "deviceModel": {
+      "type": "string"
+    },
+    "deviceType": {
+      "type": "string"
+    },
+    "deviceId": {
+      "type": "uid",
+      "required": true
+    },
+    "deploymentID": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::deployment.deployment",
+      "mappedBy": "deviceID"
+    }
+  }
+}

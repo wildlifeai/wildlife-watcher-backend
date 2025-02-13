@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sensor_records",
+  "info": {
+    "singularName": "sensor-record",
+    "pluralName": "sensor-records",
+    "displayName": "SensorRecord",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sensorID": {
+      "type": "uid",
+      "required": true
+    },
+    "batteryVoltage": {
+      "type": "integer",
+      "required": true
+    },
+    "counter": {
+      "type": "integer",
+      "required": true
+    },
+    "date": {
+      "type": "datetime",
+      "required": false
+    },
+    "deploymentID": {
+      "type": "string",
+      "required": true
+    },
+    "deviceMemoryAvailable": {
+      "type": "biginteger",
+      "required": true
+    },
+    "extra": {
+      "type": "json"
+    },
+    "gateway": {
+      "type": "string",
+      "required": true
+    },
+    "metadata": {
+      "type": "json"
+    },
+    "network": {
+      "type": "string",
+      "required": true
+    },
+    "provider": {
+      "type": "string",
+      "required": true
+    },
+    "rssi": {
+      "type": "integer",
+      "required": true
+    },
+    "sensorRecordID": {
+      "type": "string",
+      "required": true
+    },
+    "sensorStatus": {
+      "type": "string",
+      "required": true
+    },
+    "sequence": {
+      "type": "integer",
+      "required": true
+    },
+    "snr": {
+      "type": "integer",
+      "required": true
+    },
+    "submissionDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "timeout": {
+      "type": "biginteger",
+      "required": true
+    },
+    "mediaID": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::media.media",
+      "inversedBy": "sensorRecords"
+    }
+  }
+}

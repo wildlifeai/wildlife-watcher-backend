@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "singularName": "project",
+    "pluralName": "projects",
+    "displayName": "Projects",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "projectID": {
+      "type": "uid",
+      "required": true
+    },
+    "acronym": {
+      "type": "string",
+      "required": true
+    },
+    "captureMethod": {
+      "type": "text",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "individualAnimals": {
+      "type": "integer",
+      "required": true
+    },
+    "observationLevel": {
+      "type": "string",
+      "required": true
+    },
+    "projectPrivacy": {
+      "type": "string",
+      "required": true
+    },
+    "samplingDesign": {
+      "type": "text",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "projectTeam": {
+      "type": "json",
+      "required": true
+    },
+    "deployments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::deployment.deployment",
+      "mappedBy": "projectID"
+    }
+  }
+}

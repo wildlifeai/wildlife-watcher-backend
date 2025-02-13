@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "api_logs",
+  "info": {
+    "singularName": "api-log",
+    "pluralName": "api-logs",
+    "displayName": "APILog",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "apiEndpoint": {
+      "type": "string",
+      "required": true
+    },
+    "userID": {
+      "type": "uid",
+      "required": true
+    },
+    "requestDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "responseStatus": {
+      "type": "integer"
+    },
+    "logID": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

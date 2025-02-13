@@ -1,0 +1,82 @@
+{
+  "kind": "collectionType",
+  "collectionName": "observations",
+  "info": {
+    "singularName": "observation",
+    "pluralName": "observations",
+    "displayName": "Observation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "observationID": {
+      "type": "uid",
+      "required": true
+    },
+    "classificationMethod": {
+      "type": "text",
+      "required": false
+    },
+    "classificationProbability": {
+      "type": "decimal"
+    },
+    "classificationTimestamp": {
+      "type": "datetime"
+    },
+    "classifiedBy": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer",
+      "required": true
+    },
+    "eventStart": {
+      "type": "datetime",
+      "required": true
+    },
+    "eventEnd": {
+      "type": "datetime",
+      "required": true
+    },
+    "eventID": {
+      "type": "string",
+      "required": true
+    },
+    "individualID": {
+      "type": "string"
+    },
+    "observationComments": {
+      "type": "text"
+    },
+    "observationLevel": {
+      "type": "string",
+      "required": true
+    },
+    "observationType": {
+      "type": "string",
+      "required": true
+    },
+    "scientificName": {
+      "type": "string",
+      "required": true
+    },
+    "mediaID": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::media.media",
+      "mappedBy": "observations"
+    },
+    "deploymentID": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::deployment.deployment",
+      "inversedBy": "observations"
+    },
+    "classifiedByModelID": {
+      "type": "string"
+    }
+  }
+}

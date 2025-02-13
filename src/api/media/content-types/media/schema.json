@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "multi_media",
+  "info": {
+    "singularName": "media",
+    "pluralName": "multi-media",
+    "displayName": "Media",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "mediaID": {
+      "type": "uid",
+      "required": true
+    },
+    "fileMediaType": {
+      "type": "string",
+      "required": true
+    },
+    "filePath": {
+      "type": "string",
+      "required": true
+    },
+    "filePublic": {
+      "type": "boolean",
+      "required": true
+    },
+    "exifData": {
+      "type": "json",
+      "required": true
+    },
+    "deploymentID": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::deployment.deployment",
+      "inversedBy": "mediaID"
+    },
+    "observations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::observation.observation",
+      "private": true,
+      "inversedBy": "mediaID"
+    },
+    "sensorRecords": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sensor-record.sensor-record",
+      "private": true,
+      "mappedBy": "mediaID"
+    }
+  }
+}

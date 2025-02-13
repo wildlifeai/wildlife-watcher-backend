@@ -1,0 +1,112 @@
+{
+  "kind": "collectionType",
+  "collectionName": "deployments",
+  "info": {
+    "singularName": "deployment",
+    "pluralName": "deployments",
+    "displayName": "Deployment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "deploymentID": {
+      "type": "uid",
+      "required": true
+    },
+    "baitUse": {
+      "type": "string"
+    },
+    "coordinateUncertainty": {
+      "type": "decimal",
+      "default": 0
+    },
+    "deploymentComments": {
+      "type": "text"
+    },
+    "deploymentEnd": {
+      "type": "datetime",
+      "required": true
+    },
+    "deploymentPhotos": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "deploymentStart": {
+      "type": "datetime",
+      "required": true
+    },
+    "detectionDistance": {
+      "type": "decimal",
+      "required": false
+    },
+    "deviceDelay": {
+      "type": "decimal"
+    },
+    "deviceHeading": {
+      "type": "decimal"
+    },
+    "deviceHeight": {
+      "type": "decimal"
+    },
+    "deviceTilt": {
+      "type": "decimal"
+    },
+    "habitat": {
+      "type": "text"
+    },
+    "latitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "longitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "locationName": {
+      "type": "string",
+      "required": true
+    },
+    "setupBy": {
+      "type": "string",
+      "required": true
+    },
+    "mediaID": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::media.media",
+      "mappedBy": "deploymentID"
+    },
+    "deviceID": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::device.device",
+      "inversedBy": "deploymentID"
+    },
+    "locationID": {
+      "type": "string",
+      "required": true
+    },
+    "projectID": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "deployments"
+    },
+    "observations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::observation.observation",
+      "mappedBy": "deploymentID"
+    }
+  }
+}

@@ -39,12 +39,6 @@ jobs:
           port: 22
           script: |
             cd /opt/wildlife-watcher-backend
-            echo "Injecting environment file for ${{ github.event.inputs.environment }} environment..."
-
-            echo "# Database configuration" >> .env
-            echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> .env
-            echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
-            echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> .env
 
             echo "Pulling latest images..."
             docker compose -f docker-compose.prod.yml up -d --pull always --remove-orphans

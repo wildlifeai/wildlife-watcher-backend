@@ -1,0 +1,51 @@
+name: Deploy to Azure VM
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    environment: ${{ github.event.inputs.environment }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy docker-compose.prod file to remote server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ vars.AZURE_VM_IP }}
+          username: ${{ vars.AZURE_VM_SSH_USERNAME }}
+          key: ${{ secrets.AZURE_VM_SSH_KEY }}
+          port: 22
+          source: "docker-compose.prod.yml"
+          target: "/opt/wildlife-watcher-backend"
+
+      - name: Deploy Docker Compose Application via SSH
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ vars.AZURE_VM_IP }}
+          username: ${{ vars.AZURE_VM_SSH_USERNAME }}
+          key: ${{ secrets.AZURE_VM_SSH_KEY }}
+          port: 22
+          script: |
+            cd /opt/wildlife-watcher-backend
+            echo "Injecting environment file for ${{ github.event.inputs.environment }} environment..."
+
+            echo "# Database configuration" >> .env
+            echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> .env
+            echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
+            echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> .env
+
+            echo "Pulling latest images..."
+            docker compose -f docker-compose.prod.yml up -d --pull always --remove-orphans
+

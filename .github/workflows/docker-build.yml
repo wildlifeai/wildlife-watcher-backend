@@ -20,6 +20,8 @@ env:
 
 jobs:
   build:
+    # Only run on main branch or when manually triggered with 'main' branch
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.branch == 'main')
     runs-on: ubuntu-22.04
     environment: production
     permissions:

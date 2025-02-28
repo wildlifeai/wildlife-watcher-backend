@@ -1,13 +1,24 @@
 services:
-  nginx:
-    image: nginx:alpine
-    container_name: wildlife-nginx
+  traefik:
+    image: "traefik:v3.3"
+    container_name: wildlife-traefik
     ports:
       - "80:80"
+      - "443:443"
+      - "8080:8080"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-    depends_on:
-      - strapi
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL:-admin@localhost}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     restart: unless-stopped
 
   strapi:
@@ -18,6 +29,20 @@ services:
       - ./public/uploads:/opt/app/public/uploads
     depends_on:
       - strapiDB
+    labels:
+      - "traefik.enable=true"
+      # Redirect HTTP to HTTPS
+      - "traefik.http.routers.strapi.entrypoints=web"
+      - "traefik.http.routers.strapi.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.strapi.middlewares=redirect-to-https"
+      # HTTPS configuration
+      - "traefik.http.routers.strapi-secure.entrypoints=websecure"
+      - "traefik.http.routers.strapi-secure.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.strapi-secure.tls=true"
+      - "traefik.http.routers.strapi-secure.tls.certresolver=myresolver"
+      - "traefik.http.services.strapi.loadbalancer.server.port=1337"
+      # Middleware redirect
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
   strapiDB:
     image: postgres:15.10-alpine

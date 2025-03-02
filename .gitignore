@@ -91,6 +91,7 @@ public/uploads/*
 .env.production.local
 nginx/ssl/*
 !nginx/ssl/.gitkeep
+docker-compose.override.yml
 
 ############################
 # Node.js

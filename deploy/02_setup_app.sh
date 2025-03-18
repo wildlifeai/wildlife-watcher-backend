@@ -1,9 +1,13 @@
 #!/bin/bash
 # Create .env file
 cat > .env << EOL
+DATABASE_CLIENT=postgres
+DATABASE_HOST=strapiDB
+DATABASE_PORT=5432
+DATABASE_NAME=strapi
 DATABASE_USERNAME=strapi
 DATABASE_PASSWORD=3kbt5465h0bvclfrjh5430vje39
-DATABASE_NAME=strapi
+DATABASE_SSL=false
 EOL
 
 # Create the directory if it doesn't exist

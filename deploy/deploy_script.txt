@@ -20,26 +20,26 @@ stty -echo && \
 printf "Enter your GitHub PAT (with read:packages and repo scope): " && \
 read CR_PAT && \
 stty echo && \
-printf "\n"
+printf "\n" && \
 
 # Create /opt if needed and set permissions
 if [ ! -d "/opt" ]; then sudo mkdir -p /opt; fi && \
-sudo chown -R $USER:$USER /opt
+sudo chown -R $USER:$USER /opt && \
 
 # Clone the project (private repo, auth needed)
 cd /opt && \
 git clone https://${GITHUB_USERNAME}:${CR_PAT}@github.com/wildlifeai/wildlife-watcher-backend.git && \
-cd wildlife-watcher-backend
+cd wildlife-watcher-backend && \
 
 # Make Docker install script executable and run it
 chmod +x deploy/01_install_docker.sh && \
-./deploy/01_install_docker.sh
+./deploy/01_install_docker.sh && \
 
 # Login to GitHub Container Registry with credentials
-# You may need to run Get GitHub credentials again if echo $CR_PAT is empty.
+echo $CR_PAT | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin && \
 
-echo $CR_PAT | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
+
 
 # Make setup script executable and run it
-chmod +x deploy/02_setup_app.sh
+chmod +x deploy/02_setup_app.sh && \
 ./deploy/02_setup_app.sh

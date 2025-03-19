@@ -1,14 +1,28 @@
 #!/bin/bash
+
+# Set your Key Vault details
+VAULT_NAME="secrets-staging"
+
 # Create .env file
-cat > .env << EOL
-DATABASE_CLIENT=postgres
-DATABASE_HOST=strapiDB
-DATABASE_PORT=5432
-DATABASE_NAME=strapi
-DATABASE_USERNAME=strapi
-DATABASE_PASSWORD=3kbt5465h0bvclfrjh5430vje39
-DATABASE_SSL=false
-EOL
+echo "Downloading all secrets from Azure Key Vault..."
+
+# Initialize the .env file
+> .env
+
+# Get all secrets from Key Vault and format them for .env
+az keyvault secret list --vault-name $VAULT_NAME --query "[].name" -o tsv | while read secret_name; do
+    # Get the value for each secret
+    value=$(az keyvault secret show --vault-name $VAULT_NAME --name "$secret_name" --query "value" -o tsv)
+    
+    # Convert hyphenated name back to uppercase with underscores
+    env_name=$(echo "$secret_name" | tr '-' '_' | tr '[:lower:]' '[:upper:]')
+    
+    # Add to .env file
+    echo "$env_name=$value" >> .env
+    echo "Added secret: $env_name"
+done
+
+echo "Environment variables downloaded successfully!"
 
 # Create the directory if it doesn't exist
 sudo mkdir -p /opt/wildlife-watcher-backend/postgres-data

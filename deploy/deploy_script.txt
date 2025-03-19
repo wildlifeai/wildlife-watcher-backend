@@ -11,6 +11,9 @@ docker compose -f docker-compose.prod.yml exec strapiDB psql -U strapi
 docker compose -f docker-compose.prod.yml restart strapi
 
 # === INSTRUCTIONS ===
+# BEFORE YOU START, AFTER CREATING A VM, INSTALL AZURE CLI AND MAKE SURE YOU'RE LOGGED IN (az login).
+# ALSO MAKE SURE THE USER YOU'RE USING HAS PERMISSIONS TO THE AZURE KEY VAULT YOU NEED.
+
 # On a fresh Ubuntu VM, copy and paste everything below this line into your terminal
 # ==================
 

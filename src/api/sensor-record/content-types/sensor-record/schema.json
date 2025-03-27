@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "sensorID": {
-      "type": "uid",
-      "required": true
-    },
     "batteryVoltage": {
       "type": "integer",
       "required": true

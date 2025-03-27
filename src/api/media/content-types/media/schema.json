@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "mediaID": {
-      "type": "uid",
-      "required": true
-    },
     "fileMediaType": {
       "type": "string",
       "required": true

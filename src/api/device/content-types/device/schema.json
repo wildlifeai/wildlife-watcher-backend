@@ -18,10 +18,6 @@
     "deviceType": {
       "type": "string"
     },
-    "deviceId": {
-      "type": "uid",
-      "required": true
-    },
     "deploymentID": {
       "type": "relation",
       "relation": "oneToMany",

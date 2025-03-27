@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "deploymentID": {
-      "type": "uid",
-      "required": true
-    },
     "baitUse": {
       "type": "string"
     },
@@ -28,7 +24,7 @@
     },
     "deploymentEnd": {
       "type": "datetime",
-      "required": true
+      "required": false
     },
     "deploymentPhotos": {
       "type": "media",
@@ -43,7 +39,7 @@
     },
     "deploymentStart": {
       "type": "datetime",
-      "required": true
+      "required": false
     },
     "detectionDistance": {
       "type": "decimal",
@@ -66,19 +62,19 @@
     },
     "latitude": {
       "type": "decimal",
-      "required": true
+      "required": false
     },
     "longitude": {
       "type": "decimal",
-      "required": true
+      "required": false
     },
     "locationName": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "setupBy": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "mediaID": {
       "type": "relation",
@@ -94,7 +90,7 @@
     },
     "locationID": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "projectID": {
       "type": "relation",

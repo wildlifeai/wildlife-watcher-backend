@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "observationID": {
-      "type": "uid",
-      "required": true
-    },
     "classificationMethod": {
       "type": "text",
       "required": false

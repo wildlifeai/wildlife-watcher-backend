@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "projectID": {
-      "type": "uid",
-      "required": true
-    },
     "acronym": {
       "type": "string",
       "required": true

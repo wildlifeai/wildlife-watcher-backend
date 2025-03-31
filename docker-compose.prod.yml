@@ -26,6 +26,7 @@ services:
     env_file: .env
     volumes:
       - ./public/uploads:/opt/app/public/uploads
+      - ./backups:/opt/app/backups
     depends_on:
       - strapiDB
     labels:

@@ -12,6 +12,7 @@ services:
       - ./package-lock.json:/opt/app/package-lock.json
       - ./.env:/opt/app/.env
       - ./public/uploads:/opt/app/public/uploads
+      - ./backups:/opt/app/backups
     ports:
       - "1337:1337"
     depends_on:

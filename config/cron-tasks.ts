@@ -14,12 +14,13 @@ export default {
       // Create filename with timestamp
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       const appVersion = strapi.config.get('info.version', 'unknown');
-      const backupFilename = path.join(backupsDir, `strapi-backup-${timestamp}-v${appVersion}.tar.gz`);
+      const backupFilename = path.join(backupsDir, `strapi-backup-${timestamp}-v${appVersion}`);
 
       // Execute backup command
       console.log(`Creating database backup at ${backupFilename}`);
       try {
         execSync(`npm run strapi export -- --no-encrypt --file "${backupFilename}"`);
+        // auto generate the backup file name backupFilename.tar.gz
         console.log('Database backup completed successfully');
       } catch (error) {
         console.error('Database backup failed:', error);

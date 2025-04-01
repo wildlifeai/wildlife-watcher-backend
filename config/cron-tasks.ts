@@ -1,3 +1,5 @@
+import { uploadToAzure } from '../utils/azure-storage';
+
 export default {
   backupDbJob: {
     task: ({ strapi }) => {
@@ -20,8 +22,17 @@ export default {
       console.log(`Creating database backup at ${backupFilename}`);
       try {
         execSync(`npm run strapi export -- --no-encrypt --file "${backupFilename}"`);
-        // auto generate the backup file name backupFilename.tar.gz
         console.log('Database backup completed successfully');
+
+        // Execute the upload with error handling
+        const backupFile = `${backupFilename}.tar.gz`;
+        uploadToAzure(backupFile)
+          .then(() => {
+            console.log('Backup file uploaded to Azure successfully');
+          })
+          .catch((error) => {
+            console.error('Error during backup upload:', error);
+          });
       } catch (error) {
         console.error('Database backup failed:', error);
       }

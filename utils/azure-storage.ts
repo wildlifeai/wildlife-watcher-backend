@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import { BlobServiceClient } from '@azure/storage-blob';
 
@@ -8,6 +9,12 @@ import { BlobServiceClient } from '@azure/storage-blob';
  */
 export const uploadToAzure = async (filePath: string): Promise<void> => {
   try {
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      console.error(`File ${filePath} does not exist. Skipping upload.`);
+      return;
+    }
+
     // Get Azure Storage connection string from environment variable
     const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
     if (!connectionString) {

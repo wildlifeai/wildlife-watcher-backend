@@ -81,17 +81,9 @@ Build your admin panel.
 npm run build
 ```
 
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-```bash
-npm run strapi deploy
-```
-
 ## 🐋 Docker Deployment
 
-This project uses GitHub Container Registry (ghcr.io) to host private Docker images. The images are built automatically on push to main branch or when creating a new tag.
+This project uses GitHub Container Registry (ghcr.io) to host private Docker images. The images are built automatically on push to main branch.
 
 ### Container Registry
 
@@ -100,36 +92,14 @@ Private images are stored at: `ghcr.io/wildlifeai/wildlife-watcher-backend`
 Available tags:
 
 - `main` - latest build from main branch
-- `v*.*.*` - release versions (e.g., v1.0.0)
-- `sha-XXXXXX` - specific commit builds
 
 ### Running in Production
 
-1. Login to GitHub Container Registry:
+Migrations need to be documented (not sure how Strapi currently handles it). You need to ssh to the azure container, and update the image:
 
 ```bash
-# Create a Personal Access Token (PAT) with 'read:packages' scope
-# at https://github.com/settings/tokens
-export CR_PAT=YOUR_PAT
-echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+cd /opt/wildlife-watcher-backend/
 ```
-
-2. Pull the latest version:
-
-```bash
-docker pull ghcr.io/wildlifeai/wildlife-watcher-backend:main
-```
-
-3. Clone the repository:
-
-```bash
-git clone https://github.com/wildlifeai/wildlife-watcher-backend.git
-cd wildlife-watcher-backend
-```
-
-4. Create a `.env` file with your production settings.
-
-5. Start the production stack:
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d
@@ -139,19 +109,7 @@ docker compose -f docker-compose.prod.yml up -d
 
 To create a new versioned release:
 
-```bash
-# Tag the release
-git tag v1.0.0
-
-# Push the tag
-git push origin v1.0.0
-```
-
-This will trigger a new build with the version tag, which you can then pull using:
-
-```bash
-docker pull ghcr.io/wildlifeai/wildlife-watcher-backend:v1.0.0
-```
+Push to the main branch and the GitHub actions will take over.
 
 ## 📚 Learn more
 
